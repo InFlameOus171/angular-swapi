@@ -1,0 +1,20 @@
+.character-list {
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+}
+.character-list-container {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+@media screen and (min-width: 1080px) {
+  .character-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .character-list-container {
+    display: grid;
+    grid-template-columns: repeat(7, 14%);
+  }
+}

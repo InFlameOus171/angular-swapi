@@ -3,6 +3,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "Launch test",
+      "request": "launch",
+      "mainClass": "test",
+      "projectName": "swapi_6e69d156"
+    },
+    {
       "name": "ng serve",
       "type": "pwa-chrome",
       "request": "launch",
