@@ -36,7 +36,9 @@ $base-font-color: #4e4e4e;
   text-decoration: none;
   font-weight: 700;
   border-radius: 8px;
+  pointer-events: none;
   &:not([class*="-disabled"]) {
+    pointer-events: all;
     background-color: $nav-button-bg-color;
     border: 2px solid $nav-button-border-color;
     &:hover {

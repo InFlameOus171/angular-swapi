@@ -1,7 +1,17 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { delay, filter, forkJoin, map, mergeMap, Observable, tap } from 'rxjs';
+import {
+  debounceTime,
+  delay,
+  filter,
+  forkJoin,
+  map,
+  mergeMap,
+  Observable,
+  takeLast,
+  tap,
+} from 'rxjs';
 import { MapToCharacterPipe } from 'src/app/shared/pipes/mapToCharacter/map-to-character.pipe';
 import { apiURL } from 'src/app/shared/services/api.config';
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -18,7 +28,9 @@ import { HttpStatusService } from 'src/app/shared/services/http-status.service';
   providers: [MapToCharacterPipe],
 })
 export class FilmDetailsComponent implements OnInit {
-  isLoading$?: Observable<boolean>;
+  isLoading$: Observable<boolean> = this.httpStatusService.isLoading$.pipe(
+    delay(0)
+  );
   film$?: Observable<
     IFilmResponse & {
       characters$: Observable<IPeopleResponse[]>;
@@ -32,15 +44,7 @@ export class FilmDetailsComponent implements OnInit {
     private location: Location
   ) {}
 
-  listenToLoadingState(): void {
-    this.isLoading$ = this.httpStatusService.loadingSub.pipe(
-      delay(100),
-      filter(Boolean)
-    );
-  }
-
   ngOnInit(): void {
-    this.listenToLoadingState();
     this.film$ = this.route.paramMap.pipe(
       map((params) => params.get('id')),
       filter(Boolean),

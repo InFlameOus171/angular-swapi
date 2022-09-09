@@ -4,12 +4,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { PeopleComponent } from './components/people/people.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PeopleComponent } from './pages/people/people.component';
 import { MapToRouterLinkPipe } from './shared/pipes/mapToRouterLink/map-to-router-link.pipe';
-import { FilmDetailsComponent } from './components/film-details/film-details.component';
+import { FilmDetailsComponent } from './pages/film-details/film-details.component';
 import { MapToCharacterPipe } from './shared/pipes/mapToCharacter/map-to-character.pipe';
-import { PeopleDetailsComponent } from './components/people-details/people-details.component';
+import { PeopleDetailsComponent } from './pages/people-details/people-details.component';
 import { ToRouteUrlPipe } from './shared/pipes/toRouteUrl/to-route-url.pipe';
 import { HttpRequestInterceptor } from './shared/services/http-request-interceptor.service';
 

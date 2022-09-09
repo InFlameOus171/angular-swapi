@@ -1,29 +1,26 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  delay,
+  finalize,
+  map,
+  Observable,
+  of,
+  Subject,
+  throwError,
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpStatusService {
-  loadingSub: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  loadingMap: Map<string, boolean> = new Map<string, boolean>();
+  private _loading$ = new BehaviorSubject<boolean>(false);
+  public readonly isLoading$ = this._loading$.asObservable();
 
   constructor() {}
 
-  setIsLoading(loading: boolean, url: string): void {
-    if (!url) {
-      throw new Error(
-        'The request URL must be provided to the HttpService.setLoading function'
-      );
-    }
-    if (loading === true) {
-      this.loadingMap.set(url, loading);
-      this.loadingSub.next(true);
-    } else if (loading === false && this.loadingMap.has(url)) {
-      this.loadingMap.delete(url);
-    }
-    if (this.loadingMap.size === 0) {
-      this.loadingSub.next(false);
-    }
+  setIsLoading(value: boolean) {
+    this._loading$.next(value);
   }
 }

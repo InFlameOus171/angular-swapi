@@ -1,6 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, UrlSegment } from '@angular/router';
-import { Observable, tap, debounceTime } from 'rxjs';
+import {
+  Observable,
+  tap,
+  debounceTime,
+  filter,
+  takeLast,
+  delay,
+  toArray,
+  map,
+  distinctUntilChanged,
+} from 'rxjs';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Location } from '@angular/common';
 
@@ -19,17 +29,15 @@ export class PeopleComponent implements OnInit {
   previousUrl: string = '';
   nextUrl: string = '';
   people$?: Observable<ISWApiListResponse<IPeopleResponse>>;
-  isLoading$?: Observable<boolean>;
+  isLoading$: Observable<boolean> = this.httpStatusService.isLoading$.pipe(
+    delay(0)
+  );
   constructor(
     private api: ApiService,
     private route: ActivatedRoute,
     private httpStatusService: HttpStatusService,
     private location: Location
   ) {}
-
-  listenToLoadingState(): void {
-    this.isLoading$ = this.httpStatusService.loadingSub.pipe(debounceTime(200));
-  }
 
   private updatePageNavigationFor =
     (currentPath: UrlSegment) =>
@@ -53,9 +61,14 @@ export class PeopleComponent implements OnInit {
   ngOnInit(): void {
     const currentPage = this.route.snapshot.paramMap.get('page');
     const currentPath = this.route.snapshot.url[0];
-    this.listenToLoadingState();
-    this.people$ = this.api
-      .getPeople(currentPage)
-      .pipe(tap(this.updatePageNavigationFor(currentPath)));
+    this.people$ = this.api.getPeople(currentPage).pipe(
+      tap(this.updatePageNavigationFor(currentPath)),
+      map((response) => ({
+        ...response,
+        results: response.results.sort(
+          (x, y) => x.name?.localeCompare(y.name ?? '') ?? 0
+        ),
+      }))
+    );
   }
 }

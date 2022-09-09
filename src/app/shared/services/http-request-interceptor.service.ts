@@ -6,27 +6,39 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  map,
+  finalize,
+  delay,
+  debounceTime,
+  distinctUntilChanged,
+  takeLast,
+} from 'rxjs';
 import { HttpStatusService } from './http-status.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpRequestInterceptor implements HttpInterceptor {
-  constructor(private _loading: HttpStatusService) {}
+  constructor(private statusService: HttpStatusService) {}
+  totalRequests = 0;
 
   intercept(
-    request: HttpRequest<any>,
+    request: HttpRequest<unknown>,
     next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    this._loading.setIsLoading(true, request.url);
+  ): Observable<HttpEvent<unknown>> {
+    this.totalRequests++;
+    this.statusService.setIsLoading(true);
+
     return next.handle(request).pipe(
-      map<HttpEvent<any>, any>((evt: HttpEvent<any>) => {
-        console.log(evt);
-        if (evt instanceof HttpResponse<any>) {
-          this._loading.setIsLoading(false, request.url);
+      finalize(() => {
+        this.totalRequests--;
+
+        if (!this.totalRequests) {
+          this.statusService.setIsLoading(false);
         }
-        return evt;
       })
     );
   }
