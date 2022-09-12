@@ -1,0 +1,8 @@
+<ul class="character-list">
+    <div>Characters:</div>
+    <span class="character-list-container">
+        <li *ngFor="let character of characters">
+            <a href="{{ character | toRouteUrl }}">{{ character.name }}</a>
+        </li>
+    </span>
+</ul>

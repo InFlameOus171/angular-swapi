@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 $nav-button-bg-color: rgba(100, 200, 100, 0.4);
 $nav-button-border-color: rgba(70, 170, 70, 0.2);
+$nav-button-border-color-hover: darken($nav-button-border-color, 10%);
+$nav-button-bg-color-hover: lighten($nav-button-bg-color, 10%);
 $base-font-color: #4e4e4e;
 
 * {
@@ -22,8 +24,8 @@ $base-font-color: #4e4e4e;
   border-radius: 8px;
 
   &:hover {
-    background-color: lighten($nav-button-bg-color, 10%);
-    border-color: darken($nav-button-border-color, 10%);
+    background-color: $nav-button-bg-color-hover;
+    border-color: $nav-button-border-color-hover;
   }
 }
 

@@ -12,6 +12,8 @@ import { MapToCharacterPipe } from './shared/pipes/mapToCharacter/map-to-charact
 import { PeopleDetailsComponent } from './pages/people-details/people-details.component';
 import { ToRouteUrlPipe } from './shared/pipes/toRouteUrl/to-route-url.pipe';
 import { HttpRequestInterceptor } from './shared/services/http-request-interceptor.service';
+import { CharacterListComponent } from './components/character-list/character-list.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,9 @@ import { HttpRequestInterceptor } from './shared/services/http-request-intercept
     MapToCharacterPipe,
     PeopleDetailsComponent,
     ToRouteUrlPipe,
+    CharacterListComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

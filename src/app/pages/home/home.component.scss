@@ -1,0 +1,50 @@
+@import "/src/styles.scss";
+
+#container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  gap: 20px;
+}
+
+label {
+  border: 2px solid $nav-button-border-color;
+  padding: 10px 15px;
+  width: 100%;
+  background-color: $nav-button-bg-color;
+}
+form {
+  * {
+    border-radius: 5px;
+  }
+  width: fit-content;
+  display: flex;
+  > fieldset {
+    padding: 0;
+    display: flex;
+    border: 2px solid $nav-button-border-color;
+    background-color: $nav-button-bg-color;
+    gap: 2px;
+    padding: 2px;
+    div {
+      display: flex;
+      align-items: center;
+      width: 50%;
+      input {
+        display: none;
+      }
+
+      &:hover {
+        label {
+          background-color: $nav-button-bg-color-hover;
+          border-color: $nav-button-border-color-hover;
+        }
+      }
+      input:checked + label {
+        background-color: rgba(88, 189, 0, 0.813);
+        color: white;
+      }
+    }
+  }
+}

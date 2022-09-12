@@ -1,3 +1,21 @@
-<div>
-  <a href="people">Show All People</a>
+<div id="container">
+  <form #radioGroup>
+    <fieldset>
+      <div>
+        <input id="people-checkbox" type="radio" name="category" value="people">
+        <label for="people-checkbox">People</label>
+      </div>
+      <div>
+        <input id="films-checkbox" type="radio" name="category" value="films">
+        <label for="films-checkbox">Films</label>
+      </div>
+    </fieldset>
+  </form>
+  <div>
+    <input [(ngModel)]="searchTerm" #name="ngModel" type="text">
+    <!-- TO BE FIXED -->
+    <button type="button" [disabled]="!name.value || radioGroup['get']('category').value"
+      (click)="onSearch()">Search</button>
+  </div>
+  <div><a href="people">Show All People</a></div>
 </div>

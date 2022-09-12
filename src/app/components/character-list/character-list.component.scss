@@ -1,0 +1,43 @@
+@import "/src/styles.scss";
+
+.character-list {
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+}
+.character-list-container {
+  max-height: 50vh;
+  overflow-y: auto;
+  border: 2px solid $nav-button-border-color;
+  border-radius: 10px;
+  background-color: $nav-button-bg-color;
+  padding: 0;
+  li {
+    box-sizing: border-box;
+    background-color: $nav-button-bg-color;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    &:hover {
+      background-color: $nav-button-bg-color-hover;
+      border-color: $nav-button-border-color-hover;
+    }
+    > a {
+      padding: 15px;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+    }
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  .character-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .character-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  }
+}
