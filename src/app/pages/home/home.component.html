@@ -1,21 +1,21 @@
 <div id="container">
-  <form #radioGroup>
+  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
     <fieldset>
       <div>
-        <input id="people-checkbox" type="radio" name="category" value="people">
+        <input id="people-checkbox" ngModel type="radio" formControlName="category" value="people">
         <label for="people-checkbox">People</label>
       </div>
       <div>
-        <input id="films-checkbox" type="radio" name="category" value="films">
+        <input id="films-checkbox" ngModel type="radio" formControlName="category" value="films">
         <label for="films-checkbox">Films</label>
       </div>
     </fieldset>
+    <div>
+      <input ngModel formControlName="searchTerm" type="text">
+      <button type="submit"
+        [disabled]="!(searchForm.value['searchTerm'] && searchForm.value['category'])">Search</button>
+    </div>
   </form>
-  <div>
-    <input [(ngModel)]="searchTerm" #name="ngModel" type="text">
-    <!-- TO BE FIXED -->
-    <button type="button" [disabled]="!name.value || radioGroup['get']('category').value"
-      (click)="onSearch()">Search</button>
-  </div>
+
   <div><a href="people">Show All People</a></div>
 </div>

@@ -1,8 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { apiURL, Endpoints, getApiUrlFor } from './api.config';
+import { Category } from '../models/categories';
 import {
+  apiURL,
+  Endpoints,
+  getApiUrlFor,
+  getSearchApiUrlFor,
+} from './api.config';
+import {
+  ApiResponseTypes,
   IFilmResponse,
   IPeopleResponse,
   ISWApiListResponse,
@@ -44,5 +51,13 @@ export class ApiService {
   getFilmById(id: string): Observable<IFilmResponse> {
     const url = getApiUrlFor(Endpoints.FILMS).concat(id);
     return this.http.get<IFilmResponse>(url, this.config);
+  }
+
+  getSearchResultByCategory(category: Category, term: string) {
+    const url = getSearchApiUrlFor(category, term);
+    return this.http.get<ISWApiListResponse<ApiResponseTypes[typeof category]>>(
+      url,
+      this.config
+    );
   }
 }

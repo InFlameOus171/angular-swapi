@@ -13,13 +13,17 @@ label {
   padding: 10px 15px;
   width: 100%;
   background-color: $nav-button-bg-color;
+  text-align: center;
 }
+
 form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   * {
     border-radius: 5px;
   }
   width: fit-content;
-  display: flex;
   > fieldset {
     padding: 0;
     display: flex;

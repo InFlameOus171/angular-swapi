@@ -1,10 +1,4 @@
-<img
-  src="assets/pato-duck.gif"
-  width="227"
-  height="276"
-  priority
-  *ngIf="isLoading$ | async"
-/>
+<img src="assets/pato-duck.gif" width="227" height="276" priority *ngIf="isLoading$ | async" />
 <span [hidden]="isLoading$ | async">
   <div *ngIf="details$ | async as details" class="flex-container">
     <div class="row"><span class="title"> Name: </span> {{ details.name }}</div>
@@ -28,33 +22,19 @@
       <span class="title">Gender: </span> {{ details.gender }}
     </div>
     <div class="row">
-      <span class="title">Homeworld: </span> {{ details.homeworld }}
+      <app-link-list [linkList]="details.homeworld" [title]="'HomeWorld'"></app-link-list>
     </div>
     <div class="row">
-      <span class="title">Films: </span>
-      <ul>
-        <li *ngFor="let film of details.films | mapToRouterLink: 'films'">
-          <a class="link-button" href="{{ film.page }}">{{ film.label }}</a>
-        </li>
-      </ul>
+      <app-link-list [linkList]="details.films" [title]="'Films'"></app-link-list>
     </div>
     <div class="row">
-      <span class="title">Species: </span>
-      <ul>
-        <li *ngFor="let species of details.species">{{ species }}</li>
-      </ul>
+      <app-link-list [linkList]="details?.species" [title]="'Species'"></app-link-list>
     </div>
     <div class="row">
-      <span class="title">Vehicles:</span>
-      <ul>
-        <li *ngFor="let vehicle of details.vehicles">{{ vehicle }}</li>
-      </ul>
+      <app-link-list [linkList]="details?.vehicles" [title]="'Vehicles'"></app-link-list>
     </div>
     <div class="row">
-      <span class="title">Starships: </span>
-      <ul>
-        <li *ngFor="let starship of details.starships">{{ starship }}</li>
-      </ul>
+      <app-link-list [linkList]="details?.starships" [title]="'Starships'"></app-link-list>
     </div>
     <div class="row">
       <span class="title">Created: </span> {{ details.created }}
@@ -62,6 +42,5 @@
     <div class="row">
       <span class="title">Edited: </span> {{ details.edited }}
     </div>
-    <div class="row"><span class="title">URL: </span> {{ details.url }}</div>
   </div>
 </span>

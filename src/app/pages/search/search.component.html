@@ -1,0 +1,15 @@
+<ng-template #isLoading><img src="assets/pato-duck.gif" width="227" height="276" priority /></ng-template>
+<div *ngIf="response$ | async as response; else isLoading">
+    <ul>
+        <li *ngFor="let result of response.results">
+            <div *ngFor="let resultEntry of result | keyvalue">
+                <span *ngIf="!(resultEntry.value| isUrl); else isUrl">{{resultEntry.key}}: {{resultEntry.value}}</span>
+                <ng-template #isUrl>
+                    {{resultEntry.key}}:
+                    <a *ngFor="let linkData of (resultEntry.value | toUrlList | mapToRouterLink);"
+                        href="{{linkData.page}}">{{linkData.label}}</a>
+                </ng-template>
+            </div>
+        </li>
+    </ul>
+</div>

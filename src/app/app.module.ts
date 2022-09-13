@@ -13,7 +13,11 @@ import { PeopleDetailsComponent } from './pages/people-details/people-details.co
 import { ToRouteUrlPipe } from './shared/pipes/toRouteUrl/to-route-url.pipe';
 import { HttpRequestInterceptor } from './shared/services/http-request-interceptor.service';
 import { CharacterListComponent } from './components/character-list/character-list.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchComponent } from './pages/search/search.component';
+import { IsUrlPipe } from './shared/pipes/isUrl/is-url.pipe';
+import { ToUrlListPipe } from './shared/pipes/toUrlList/to-url-list.pipe';
+import { LinkListComponent } from './components/link-list/link-list.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +30,18 @@ import { FormsModule } from '@angular/forms';
     PeopleDetailsComponent,
     ToRouteUrlPipe,
     CharacterListComponent,
+    SearchComponent,
+    IsUrlPipe,
+    ToUrlListPipe,
+    LinkListComponent,
   ],
-  imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

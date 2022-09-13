@@ -1,11 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 
-import { ApiService } from 'src/app/shared/services/api.service';
-import {
-  IPeopleResponse,
-  ISWApiListResponse,
-} from 'src/app/shared/services/api.types';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormValues } from './models/home.models';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +10,20 @@ import {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  @Input() searchTerm?: string;
-  constructor(private location: Location) {}
+  searchForm = new FormGroup<FormValues>({
+    searchTerm: new FormControl(),
+    category: new FormControl(),
+  });
+  constructor(private router: Router) {}
 
   onSearch() {
-    if (this.searchTerm) {
-      this.location.go(`search`);
+    const { searchTerm, category } = this.searchForm.value;
+    if (!(searchTerm && category)) {
+      return;
     }
+    this.router.navigate(['/search'], {
+      queryParams: { term: searchTerm, category },
+    });
   }
   ngOnInit(): void {}
 }

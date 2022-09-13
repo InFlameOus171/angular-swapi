@@ -9,26 +9,14 @@
       <div>Created: {{ film?.edited }}</div>
       <div>Created: {{ film?.episode_id }}</div>
       <div>Created: {{ film?.opening_crawl }}</div>
-      <ul>
-        <span>Planets: </span>
-        <li *ngFor="let planet of film?.planets ?? []">{{ planet }}</li>
-      </ul>
+      <app-link-list [linkList]="film?.planets" [title]="'Planets'"></app-link-list>
       <div>Producer: {{ film?.producer }}</div>
       <div>Release date: {{ film?.release_date }}</div>
-      <ul>
-        <span>Planets: </span>
-        <li *ngFor="let species of film?.species ?? []">{{ species }}</li>
-      </ul>
-      <ul>
-        <span>Planets: </span>
-        <li *ngFor="let starship of film?.starships ?? []">{{ starship }}</li>
-      </ul>
+      <app-link-list [linkList]="film?.species" [title]="'Species'"></app-link-list>
+      <app-link-list [linkList]="film?.starships" [title]="'Starships'"></app-link-list>
       <div>Title: {{ film?.title }}</div>
       <div>URL: {{ film?.url }}</div>
-      <ul>
-        <span>Vehicles: </span>
-        <li *ngFor="let vehicle of film?.vehicles ?? []">{{ vehicle }}</li>
-      </ul>
+      <app-link-list [linkList]="film?.vehicles" [title]="'Vehicles'"></app-link-list>
     </div>
   </span>
 </span>

@@ -5,23 +5,42 @@ import { apiURL } from '../../services/api.config';
   name: 'mapToRouterLink',
 })
 export class MapToRouterLinkPipe implements PipeTransform {
+  private toLinkdata(labelPrefix: string) {
+    return function (value: string, index: number) {
+      return {
+        label: `${labelPrefix} ${index + 1}`,
+        page: value.split(apiURL)[1],
+      };
+    };
+  }
+
   transform(
-    value: string[] = [],
-    type: 'people' | 'films'
+    value: string | string[] = []
   ): Array<{ label: string; page: string }> {
-    switch (type) {
-      case 'films': {
-        return value.map((film, index) => ({
-          label: `Film ${index + 1}`,
-          page: film.split(apiURL)[1],
-        }));
-      }
-      default: {
-        return value.map((film, index) => ({
-          label: `Film ${index + 1}`,
-          page: film.split(apiURL)[1],
-        }));
-      }
+    let links: string[] = [];
+    if (!Array.isArray(value)) {
+      links = [value];
+    } else {
+      links = value;
     }
+    if (!!links[0].match('/films')?.length) {
+      return links.map(this.toLinkdata('Film'));
+    }
+    if (!!links[0].match('/people')?.length) {
+      return links.map(this.toLinkdata('Person'));
+    }
+    if (!!links[0].match('/species')?.length) {
+      return links.map(this.toLinkdata('Species'));
+    }
+    if (!!links[0].match('/starships')?.length) {
+      return links.map(this.toLinkdata('Starship'));
+    }
+    if (!!links[0].match('/planet')?.length) {
+      return links.map(this.toLinkdata('Planet'));
+    }
+    if (!!links[0].match('/vehicles')?.length) {
+      return links.map(this.toLinkdata('Vehicle'));
+    }
+    return [];
   }
 }

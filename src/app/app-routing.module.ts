@@ -4,12 +4,17 @@ import { FilmDetailsComponent } from './pages/film-details/film-details.componen
 import { HomeComponent } from './pages/home/home.component';
 import { PeopleDetailsComponent } from './pages/people-details/people-details.component';
 import { PeopleComponent } from './pages/people/people.component';
+import { SearchComponent } from './pages/search/search.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
+  },
+  {
+    path: 'search',
+    component: SearchComponent,
   },
   {
     path: 'home',
@@ -31,6 +36,10 @@ const routes: Routes = [
   {
     path: 'films/:id',
     component: FilmDetailsComponent,
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
   },
 ];
 

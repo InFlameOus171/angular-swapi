@@ -50,3 +50,8 @@ export interface IFilmResponse {
   url?: string;
   vehicles?: string[];
 }
+
+export type ApiResponseTypes = {
+  films: IFilmResponse;
+  people: IPeopleResponse;
+};
